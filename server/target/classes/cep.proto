@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_package = "com.sd.grpc";
+
+service cep {
+	rpc create(CreateRequest) returns (APICepResponse);
+	rpc update(UpdateRequest) returns (APICepResponse);
+	rpc delete(DeleteRequest) returns (APICepResponse);
+	rpc readall(Empty) returns (stream CepResponse);
+}
+
+message Cep{
+	int64 cepInicio = 1;
+	int64 cepFim = 2;
+}
+
+message CepResponse{
+	int64 id = 1;
+	int64 cepInicio = 2;
+	int64 cepFim = 3;
+}
+
+message CreateRequest{
+	Cep cep = 1;
+}
+
+message UpdateRequest{
+	int32 id = 1;
+	Cep cep = 2;
+}
+
+message DeleteRequest{
+	int32 id = 1;
+}
+
+message APICepResponse{
+	int32 responseCode = 1;
+	string responsemessage = 2;
+	CepResponse cep = 3;
+}
+
+message Empty{}
